@@ -18,4 +18,7 @@ export class Budget {
 
     @ManyToOne(() => ExpenseCategory, (expenseCategory) => expenseCategory.budget)
     expenseCategory: ExpenseCategory;
+
+    @ManyToOne(() => User, (user) => user.budget)
+    user: User
 }
