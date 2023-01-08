@@ -1,3 +1,4 @@
+import { Expense } from "src/expense/entities/expense.entity";
 import { Income } from "src/income/entities/income.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Profile } from "./profile.entity";
@@ -26,4 +27,7 @@ export class User {
 
     @OneToMany(() => Income, (income) => income.user)
     income: Income[]
+
+    @OneToMany(() => Expense, (expense) => expense.user)
+    expense: Expense[]
 }

@@ -8,6 +8,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { IncomeCategoryModule } from './income-category/income-category.module';
 import { ExpenseCategoryModule } from './expense-category/expense-category.module';
+import { Budget } from './budget/entities/budget.entity';
+import { Expense } from './expense/entities/expense.entity';
+import { ExpenseCategory } from './expense-category/entities/expense-category.entity';
+import { Income } from './income/entities/income.entity';
+import { IncomeCategory } from './income-category/entities/income-category.entity';
+import { User } from './user/entities/User.entity';
+import { Profile } from './user/entities/profile.entity';
 
 @Module({
   imports: [
@@ -18,7 +25,7 @@ import { ExpenseCategoryModule } from './expense-category/expense-category.modul
       username: 'root',
       password: '',
       database: 'nest_expense_manager',
-      entities: [],
+      entities: [Budget, Expense, ExpenseCategory, Income, IncomeCategory, User, Profile],
       synchronize: true,
     }),
     IncomeModule,
