@@ -5,7 +5,7 @@ import { UpdateIncomeDto } from './dto/update-income.dto';
 
 @Controller('income')
 export class IncomeController {
-  constructor(private readonly incomeService: IncomeService) {}
+  constructor(private readonly incomeService: IncomeService) { }
 
   @Post()
   create(@Body() createIncomeDto: CreateIncomeDto) {
