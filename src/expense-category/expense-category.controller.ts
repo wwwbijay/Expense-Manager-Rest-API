@@ -2,10 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ExpenseCategoryService } from './expense-category.service';
 import { CreateExpenseCategoryDto } from './dto/create-expense-category.dto';
 import { UpdateExpenseCategoryDto } from './dto/update-expense-category.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Expense Category')
 @Controller('expense-category')
 export class ExpenseCategoryController {
-  constructor(private readonly expenseCategoryService: ExpenseCategoryService) {}
+  constructor(private readonly expenseCategoryService: ExpenseCategoryService) { }
 
   @Post()
   create(@Body() createExpenseCategoryDto: CreateExpenseCategoryDto) {

@@ -2,10 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { IncomeCategoryService } from './income-category.service';
 import { CreateIncomeCategoryDto } from './dto/create-income-category.dto';
 import { UpdateIncomeCategoryDto } from './dto/update-income-category.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Income Category')
 @Controller('income-category')
 export class IncomeCategoryController {
-  constructor(private readonly incomeCategoryService: IncomeCategoryService) {}
+  constructor(private readonly incomeCategoryService: IncomeCategoryService) { }
 
   @Post()
   create(@Body() createIncomeCategoryDto: CreateIncomeCategoryDto) {

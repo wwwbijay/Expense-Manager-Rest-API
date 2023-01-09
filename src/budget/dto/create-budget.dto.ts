@@ -1,1 +1,5 @@
-export class CreateBudgetDto {}
+export class CreateBudgetDto {
+    title: string;
+    amount: number;
+    remarks: string;
+}

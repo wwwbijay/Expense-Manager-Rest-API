@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { IncomeService } from './income.service';
 import { CreateIncomeDto } from './dto/create-income.dto';
 import { UpdateIncomeDto } from './dto/update-income.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Income')
 @Controller('income')
 export class IncomeController {
   constructor(private readonly incomeService: IncomeService) { }

@@ -1,11 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 
+@ApiTags('Budget')
 @Controller('budget')
 export class BudgetController {
-  constructor(private readonly budgetService: BudgetService) {}
+  constructor(private readonly budgetService: BudgetService) { }
 
   @Post()
   create(@Body() createBudgetDto: CreateBudgetDto) {
@@ -14,7 +16,7 @@ export class BudgetController {
 
   @Get()
   findAll() {
-    return this.budgetService.findAll();
+    return this.budgetService.getAllBudgets();
   }
 
   @Get(':id')
