@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { IncomeModule } from './income/income.module';
 import { ExpenseModule } from './expense/expense.module';
 import { BudgetModule } from './budget/budget.module';
@@ -35,7 +33,5 @@ import { Profile } from './user/entities/profile.entity';
     IncomeCategoryModule,
     ExpenseCategoryModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule { }

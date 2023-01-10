@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Put, Query } from '@nestjs/common/decorators';
+import { CreateUserProfileDto } from './dto/create-user-profile.dto';
+import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -15,22 +18,38 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll() {
+    return await this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Put(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.removeUser(id);
   }
+
+  @Post('create-user-profile')
+  createUserProfile(
+    @Query('userId', ParseIntPipe) userId: number,
+    @Body() createUserProfileDto: CreateUserProfileDto
+  ) {
+    return this.userService.createUserProfile(userId, createUserProfileDto);
+  }
+
+  // @Patch('update-user-profile')
+  // UpdateUserProfile(
+  //   @Query('userId', ParseIntPipe) userId: number,
+  //   @Body() updateUserProfileDto: UpdateUserProfileDto
+  // ) {
+  //   return this.userService.updateUserProfile(userId, updateUserProfileDto);
+  // }
 }
