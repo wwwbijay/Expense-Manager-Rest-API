@@ -8,6 +8,9 @@ export class Budget {
     id: number;
 
     @Column()
+    date: Date
+
+    @Column()
     title: string;
 
     @Column({ type: 'double' })

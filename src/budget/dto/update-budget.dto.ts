@@ -1,8 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBudgetDto } from './create-budget.dto';
+import { ApiProperty } from "@nestjs/swagger";
 
-export class UpdateBudgetDto extends PartialType(CreateBudgetDto) {
+export class UpdateBudgetDto {
+    @ApiProperty()
     title: string;
+    @ApiProperty()
+    date: Date;
+    @ApiProperty()
     amount: number;
+    @ApiProperty()
     remarks: string;
 }

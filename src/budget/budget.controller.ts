@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
@@ -10,8 +10,8 @@ export class BudgetController {
   constructor(private readonly budgetService: BudgetService) { }
 
   @Post()
-  create(@Body() createBudgetDto: CreateBudgetDto) {
-    return this.budgetService.create(createBudgetDto);
+  create(@Query('userId', ParseIntPipe) id: number, @Body() createBudgetDto: CreateBudgetDto) {
+    return this.budgetService.create(id, createBudgetDto);
   }
 
   @Get()
