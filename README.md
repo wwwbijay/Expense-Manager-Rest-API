@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+An attempt to build expense manager api using Nest Js.
 
 ## Installation
 
