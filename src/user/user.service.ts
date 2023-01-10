@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { Profile } from './entities/profile.entity';
 import { User } from './entities/User.entity';
 import { CreateUserParams, CreateUserProfileParams, UpdateUserParams } from '../utils/types';
@@ -25,7 +23,12 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return this.userRepository.findOneBy({ id });
+    return this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: ['profile'],
+    });
   }
 
   async updateUser(id: number, userDetails: UpdateUserParams) {
