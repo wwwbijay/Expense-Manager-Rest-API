@@ -5,7 +5,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Put, Query } from '@nestjs/common/decorators';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
-import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -45,11 +44,4 @@ export class UserController {
     return this.userService.createUserProfile(userId, createUserProfileDto);
   }
 
-  // @Patch('update-user-profile')
-  // UpdateUserProfile(
-  //   @Query('userId', ParseIntPipe) userId: number,
-  //   @Body() updateUserProfileDto: UpdateUserProfileDto
-  // ) {
-  //   return this.userService.updateUserProfile(userId, updateUserProfileDto);
-  // }
 }

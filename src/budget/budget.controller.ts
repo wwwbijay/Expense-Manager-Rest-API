@@ -7,6 +7,7 @@ import { UpdateBudgetDto } from './dto/update-budget.dto';
 @ApiTags('Budget')
 @Controller('budget')
 export class BudgetController {
+  
   constructor(private readonly budgetService: BudgetService) { }
 
   @Post()
@@ -33,4 +34,5 @@ export class BudgetController {
   remove(@Param('id') id: string) {
     return this.budgetService.remove(+id);
   }
+
 }
