@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profile } from './entities/profile.entity';
@@ -14,6 +14,11 @@ export class UserService {
   ) { }
 
   async create(userDetails: CreateUserParams) {
+    if (
+      (await this.userRepository.findOneBy({ username: userDetails.username }))
+    ){
+      throw new ConflictException('User already exist');
+    }
     const newUser = this.userRepository.create({ ...userDetails });
     return this.userRepository.save(newUser);
   }
@@ -33,7 +38,7 @@ export class UserService {
 
   async updateUser(id: number, userDetails: UpdateUserParams) {
     const updatedUser = await this.userRepository.update({ id }, { ...userDetails });
-    return updatedUser
+    return updatedUser;
   }
 
   removeUser(id: number) {
