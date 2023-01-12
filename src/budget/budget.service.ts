@@ -22,6 +22,8 @@ export class BudgetService {
       throw new HttpException('User not found. Cannot create post.', HttpStatus.BAD_REQUEST);
 
     const newBudget = this.budgetRepository.create({ ...budgetDetails, user });
+    console.log(newBudget);
+    
     return this.budgetRepository.save(newBudget);
   }
 
