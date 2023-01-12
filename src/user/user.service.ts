@@ -17,8 +17,13 @@ export class UserService {
     if (
       (await this.userRepository.findOneBy({ username: userDetails.username }))
     ){
-      throw new ConflictException('User already exist');
+      return new ConflictException('User already exist');
     }
+
+    if(userDetails.username || userDetails.password){
+
+    }
+
     const newUser = this.userRepository.create({ ...userDetails });
     return this.userRepository.save(newUser);
   }
