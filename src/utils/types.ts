@@ -24,14 +24,12 @@ export type UpdateUserProfileParams = {
 
 export type CreateBudgetParams = {
     title: string;
-    date: Date;
     amount: number;
     remarks: string;
 }
 
 export type UpdateBudgetParams = {
     title: string;
-    date: Date;
     amount: number;
     remarks: string;
 }

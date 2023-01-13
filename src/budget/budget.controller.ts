@@ -7,13 +7,16 @@ import { UpdateBudgetDto } from './dto/update-budget.dto';
 @ApiTags('Budget')
 @Controller('budget')
 export class BudgetController {
-  
+
   constructor(private readonly budgetService: BudgetService) { }
 
   @Post()
-  create(@Query('userId', ParseIntPipe) id: number, @Body() createBudgetDto: CreateBudgetDto) {
-    console.log(createBudgetDto);    
-    return this.budgetService.create(id, createBudgetDto);
+  create(
+    @Query('userId', ParseIntPipe) id: number,
+    @Query('expenseCategoryId', ParseIntPipe) eCatId: number,
+    @Body() createBudgetDto: CreateBudgetDto
+  ) {
+    return this.budgetService.create(id, eCatId, createBudgetDto);
   }
 
   @Get()

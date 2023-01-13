@@ -7,10 +7,6 @@ export class UpdateBudgetDto {
     @IsOptional()
     title: string;
     @ApiProperty()
-    @IsDate()
-    @IsOptional()
-    date: Date;
-    @ApiProperty()
     @Min(0)
     @IsOptional()
     amount: number;

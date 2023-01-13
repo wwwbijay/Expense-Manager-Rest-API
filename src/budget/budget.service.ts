@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ExpenseCategory } from 'src/expense-category/entities/expense-category.entity';
 import { User } from 'src/user/entities/User.entity';
 import { CreateBudgetParams, UpdateBudgetParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
@@ -13,16 +14,21 @@ export class BudgetService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Budget) private budgetRepository: Repository<Budget>,
+    @InjectRepository(ExpenseCategory) private exCategoryRepository: Repository<ExpenseCategory>,
   ) { }
 
-  async create(userId: number, budgetDetails: CreateBudgetParams) {
+  async create(userId: number, eCatId: number, budgetDetails: CreateBudgetParams) {
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (!user)
-      throw new HttpException('User not found. Cannot create post.', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User not found. Cannot create budget.', HttpStatus.BAD_REQUEST);
 
-    const newBudget = this.budgetRepository.create({ ...budgetDetails, user });
+    const expenseCategory = await this.exCategoryRepository.findOneBy({ id: eCatId });
 
+    if (!expenseCategory)
+      throw new HttpException('Category not found. Cannot create budget.', HttpStatus.BAD_REQUEST);
+
+    const newBudget = this.budgetRepository.create({ ...budgetDetails, expenseCategory, user });
     return this.budgetRepository.save(newBudget);
   }
 
@@ -35,6 +41,7 @@ export class BudgetService {
       where: {
         id: id,
       },
+      relations: ['expenseCategory']
     });
   }
 

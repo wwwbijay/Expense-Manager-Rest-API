@@ -7,15 +7,12 @@ export class CreateBudgetDto {
     @IsNotEmpty()
     title: string;
     @ApiProperty()
-    @IsDate()
-    @IsOptional()
-    date: Date;
-    @ApiProperty()
     @IsNotEmpty()
-    @Min(0)
+    @Min(1)
     amount: number;
     @ApiProperty()
     @IsString()
     @IsOptional()
     remarks: string;
+
 }

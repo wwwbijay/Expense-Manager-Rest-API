@@ -16,11 +16,11 @@ export class UserService {
   async create(userDetails: CreateUserParams) {
     if (
       (await this.userRepository.findOneBy({ username: userDetails.username }))
-    ){
+    ) {
       return new ConflictException('User already exist');
     }
 
-    if(userDetails.username || userDetails.password){
+    if (userDetails.username || userDetails.password) {
 
     }
 
