@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
-import { CreateIncomeCategoryDto } from './dto/create-income-category.dto';
-import { UpdateIncomeCategoryDto } from './dto/update-income-category.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateIncomeCategoryParams } from 'src/utils/types';
+import { Repository } from 'typeorm';
+import { IncomeCategory } from './entities/income-category.entity';
 
 @Injectable()
 export class IncomeCategoryService {
-  create(createIncomeCategoryDto: CreateIncomeCategoryDto) {
-    return 'This action adds a new incomeCategory';
+
+  constructor(
+    @InjectRepository(IncomeCategory) private inCategoryRepository: Repository<IncomeCategory>,
+  ) { }
+
+  async create(categoryDetails: UpdateIncomeCategoryParams) {
+    if (
+      (await this.inCategoryRepository.findOneBy({ ...categoryDetails }))
+    ) {
+      return new ConflictException('Income category already exist.');
+    }
+
+    const newCategory = this.inCategoryRepository.create({ ...categoryDetails });
+    return this.inCategoryRepository.save(newCategory);
   }
 
   findAll() {
-    return `This action returns all incomeCategory`;
+    return this.inCategoryRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} incomeCategory`;
+    return this.inCategoryRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateIncomeCategoryDto: UpdateIncomeCategoryDto) {
-    return `This action updates a #${id} incomeCategory`;
+  update(id: number, categoryDetails: UpdateIncomeCategoryParams) {
+    return this.inCategoryRepository.update({ id }, { ...categoryDetails });
   }
-
   remove(id: number) {
-    return `This action removes a #${id} incomeCategory`;
+    return this.inCategoryRepository.delete({ id });
   }
 }
