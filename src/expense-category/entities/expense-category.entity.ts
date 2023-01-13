@@ -8,7 +8,10 @@ export class ExpenseCategory {
     id: number;
 
     @Column()
-    name: string;
+    title: string;
+
+    @Column()
+    description: string;
 
     @OneToMany(() => Expense, (expense) => expense.expenseCategory)
     expense: Expense[]

@@ -22,7 +22,7 @@ import { Profile } from './user/entities/profile.entity';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'expense_manager',
+      database: 'nest_expense_manager',
       entities: [Budget, Expense, ExpenseCategory, Income, IncomeCategory, User, Profile],
       synchronize: true,
     }),

@@ -36,3 +36,13 @@ export type UpdateBudgetParams = {
     remarks: string;
 }
 
+export type CreateExpenseCategoryParams = {
+    title: string;
+    description: string;
+}
+
+export type UpdateExpenseCategoryParams = {
+    title: string;
+    description: string;
+}
+

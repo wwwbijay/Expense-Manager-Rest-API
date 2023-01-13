@@ -1,4 +1,14 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateExpenseCategoryDto } from './create-expense-category.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class UpdateExpenseCategoryDto extends PartialType(CreateExpenseCategoryDto) {}
+export class UpdateExpenseCategoryDto {
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    @IsOptional()
+    title: string;
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    description: string;
+}
