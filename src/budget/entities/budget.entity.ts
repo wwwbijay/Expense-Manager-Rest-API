@@ -7,7 +7,7 @@ export class Budget {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number;
 
-    @Column()
+    @Column({ default: () => 'NOW()' })
     date: Date
 
     @Column()

@@ -12,6 +12,7 @@ export class BudgetController {
 
   @Post()
   create(@Query('userId', ParseIntPipe) id: number, @Body() createBudgetDto: CreateBudgetDto) {
+    console.log(createBudgetDto);    
     return this.budgetService.create(id, createBudgetDto);
   }
 

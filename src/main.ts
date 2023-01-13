@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Expense Manager')
-    .setDescription('This is an api for expense manager application.')
+    .setDescription('Api for expense manager application.')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
@@ -16,7 +16,6 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      forbidUnknownValues: false
     }),
   );
 
