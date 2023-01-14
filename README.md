@@ -24,7 +24,7 @@
 
 ## Description
 
-An attempt to build expense manager api using Nest Js.
+Rest API for expense manager using Nest Js.
 
 ## Installation
 
