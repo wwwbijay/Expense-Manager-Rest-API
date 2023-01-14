@@ -1,4 +1,21 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateExpenseDto } from './create-expense.dto';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsDate, IsNotEmpty, IsOptional, IsString, Min } from "class-validator";
 
-export class UpdateExpenseDto extends PartialType(CreateExpenseDto) {}
+export class UpdateExpenseDto {
+    @ApiProperty()
+    @IsDate()
+    @IsNotEmpty()
+    date: Date;
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    title: string;
+    @ApiProperty()
+    @IsNotEmpty()
+    @Min(1)
+    amount: number;
+    @ApiProperty()
+    @IsString()
+    @IsOptional()
+    remarks: string;
+}

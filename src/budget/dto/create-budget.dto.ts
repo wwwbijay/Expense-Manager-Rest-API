@@ -14,5 +14,4 @@ export class CreateBudgetDto {
     @IsString()
     @IsOptional()
     remarks: string;
-
 }

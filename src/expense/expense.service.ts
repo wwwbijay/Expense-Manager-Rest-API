@@ -1,26 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ExpenseCategory } from 'src/expense-category/entities/expense-category.entity';
+import { User } from 'src/user/entities/User.entity';
+import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { Expense } from './entities/expense.entity';
 
 @Injectable()
 export class ExpenseService {
-  create(createExpenseDto: CreateExpenseDto) {
-    return 'This action adds a new expense';
+
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Expense) private expenseRepository: Repository<Expense>,
+    @InjectRepository(ExpenseCategory) private exCategoryRepository: Repository<ExpenseCategory>,
+  ) { }
+
+
+  async create(userId: number, eCatId: number, expenseDetails: CreateExpenseDto) {
+    const user = await this.userRepository.findOneBy({ id: userId });
+
+    if (!user)
+      throw new HttpException('User not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+
+    const expenseCategory = await this.exCategoryRepository.findOneBy({ id: eCatId });
+
+    if (!expenseCategory)
+      throw new HttpException('Category not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+
+    const newExpense = this.expenseRepository.create({ ...expenseDetails, expenseCategory, user });
+    return this.expenseRepository.save(newExpense);
   }
 
   findAll() {
-    return `This action returns all expense`;
+    return this.expenseRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} expense`;
+    return this.expenseRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: ['expenseCategory']
+    });
   }
 
-  update(id: number, updateExpenseDto: UpdateExpenseDto) {
-    return `This action updates a #${id} expense`;
+  update(id: number, expenseDetails: UpdateExpenseDto) {
+    return this.expenseRepository.update({ id }, { ...expenseDetails });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} expense`;
+    return this.expenseRepository.delete({ id });
   }
 }
