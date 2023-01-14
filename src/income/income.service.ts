@@ -20,12 +20,12 @@ export class IncomeService {
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (!user)
-      throw new HttpException('User not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User not found. Cannot add income.', HttpStatus.BAD_REQUEST);
 
     const incomeCategory = await this.exCategoryRepository.findOneBy({ id: inCatId });
 
     if (!incomeCategory)
-      throw new HttpException('Category not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Income Category not found. Cannot add income.', HttpStatus.BAD_REQUEST);
 
     const newIncome = this.incomeRepository.create({ ...incomeDetails, incomeCategory, user });
     return this.incomeRepository.save(newIncome);

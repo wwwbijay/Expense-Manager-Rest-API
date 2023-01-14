@@ -21,12 +21,12 @@ export class ExpenseService {
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (!user)
-      throw new HttpException('User not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User not found. Cannot add expense.', HttpStatus.BAD_REQUEST);
 
     const expenseCategory = await this.exCategoryRepository.findOneBy({ id: eCatId });
 
     if (!expenseCategory)
-      throw new HttpException('Category not found. Cannot create expense.', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Category not found. Cannot add expense.', HttpStatus.BAD_REQUEST);
 
     const newExpense = this.expenseRepository.create({ ...expenseDetails, expenseCategory, user });
     return this.expenseRepository.save(newExpense);
