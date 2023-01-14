@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNotEmpty, IsOptional, IsString, Min } from "class-validator";
+import { IsDateString, IsNotEmpty, IsOptional, IsString, Min } from "class-validator";
 
 export class CreateExpenseDto {
     @ApiProperty()
-    @IsDate()
+    @IsDateString()
     @IsNotEmpty()
     date: Date;
     @ApiProperty()
@@ -19,3 +19,7 @@ export class CreateExpenseDto {
     @IsOptional()
     remarks: string;
 }
+function IsIsDateString() {
+    throw new Error("Function not implemented.");
+}
+

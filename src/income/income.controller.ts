@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { IncomeService } from './income.service';
 import { CreateIncomeDto } from './dto/create-income.dto';
 import { UpdateIncomeDto } from './dto/update-income.dto';
@@ -10,8 +10,12 @@ export class IncomeController {
   constructor(private readonly incomeService: IncomeService) { }
 
   @Post()
-  create(@Body() createIncomeDto: CreateIncomeDto) {
-    return this.incomeService.create(createIncomeDto);
+  create(
+    @Query('userId', ParseIntPipe) id: number,
+    @Query('incomeCategoryId', ParseIntPipe) inCatId: number,
+    @Body() createIncomeDto: CreateIncomeDto
+  ) {
+    return this.incomeService.create(id, inCatId, createIncomeDto);
   }
 
   @Get()

@@ -67,3 +67,17 @@ export type UpdateExpenseParams = {
     amount: number;
     remarks: string;
 }
+
+export type CreateIncomeParams = {
+    date: Date;
+    title: string;
+    amount: number;
+    remarks: string;
+}
+
+export type UpdateIncomeParams = {
+    date: Date;
+    title: string;
+    amount: number;
+    remarks: string;
+}

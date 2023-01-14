@@ -7,6 +7,9 @@ export class Income {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number;
 
+    @Column({ default: () => 'NOW()' })
+    date: Date
+
     @Column()
     title: string;
 
