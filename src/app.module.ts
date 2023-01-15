@@ -13,16 +13,18 @@ import { Income } from './income/entities/income.entity';
 import { IncomeCategory } from './income-category/entities/income-category.entity';
 import { User } from './user/entities/User.entity';
 import { Profile } from './user/entities/profile.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'nest_expense_manager',
+      port: parseInt(process.env.DATABASE_PORT, 10) || 3606,
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       entities: [Budget, Expense, ExpenseCategory, Income, IncomeCategory, User, Profile],
       synchronize: true,
     }),
