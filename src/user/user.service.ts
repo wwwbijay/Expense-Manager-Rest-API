@@ -20,10 +20,6 @@ export class UserService {
       return new ConflictException('User already exist');
     }
 
-    if (userDetails.username || userDetails.password) {
-
-    }
-
     const newUser = this.userRepository.create({ ...userDetails });
     return this.userRepository.save(newUser);
   }
