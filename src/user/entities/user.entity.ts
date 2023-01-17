@@ -1,4 +1,3 @@
-import { IsDate, IsDefined, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 import { Budget } from "src/budget/entities/budget.entity";
 import { Expense } from "src/expense/entities/expense.entity";
 import { Income } from "src/income/entities/income.entity";
@@ -11,18 +10,16 @@ export class User {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number;
 
-    @IsDefined()
-    @MinLength(3)
     @Column({ unique: true })
     username: string;
 
+    @Column({ unique: true })
+    email: string;
+
     @Column()
-    @IsDefined()
-    @MinLength(5)
     password: string;
 
     @Column({ default: () => 'NOW()' })
-    @IsDate()
     createdAt: Date
 
     @Column({ nullable: true })

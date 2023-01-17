@@ -1,10 +1,12 @@
 export type CreateUserParams = {
     username: string;
+    email: string;
     password: string;
 }
 
 export type UpdateUserParams = {
     username: string;
+    email: string;
     password: string;
 }
 
@@ -13,6 +15,7 @@ export type CreateUserProfileParams = {
     lastname: string;
     age: number;
     dob: string;
+    profileImagePath:string;
 }
 
 export type UpdateUserProfileParams = {
@@ -20,6 +23,7 @@ export type UpdateUserProfileParams = {
     lastname: string;
     age: number;
     dob: string;
+    profileImagePath:string;
 }
 
 export type CreateBudgetParams = {

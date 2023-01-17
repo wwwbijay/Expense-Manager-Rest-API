@@ -9,4 +9,6 @@ export class CreateUserProfileDto {
     age: number
     @ApiProperty()
     dob: string;
+    @ApiProperty()
+    profileImagePath: string;
 }

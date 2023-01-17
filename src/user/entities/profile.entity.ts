@@ -12,4 +12,6 @@ export class Profile {
     age: number
     @Column()
     dob: string;
+    @Column()
+    profileImagePath: string;
 }

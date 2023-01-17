@@ -41,6 +41,14 @@ export class UserService {
     });
   }
 
+  findOneByUser(username: string) {
+    return this.userRepository.findOne({
+      where: {
+        username: username,
+      }
+    });
+  }
+
   async updateUser(id: number, userDetails: UpdateUserParams) {
     const updatedUser = await this.userRepository.update({ id }, { ...userDetails });
     return updatedUser;
