@@ -5,17 +5,18 @@ import { UserService } from "src/user/user.service";
 import { AuthService } from "./auth.service";
 
 @Injectable()
-export class JWTStrategy extends PassportStrategy(Strategy){
-    
-    constructor(private authService: AuthService, private userService: UserService){
+export class JWTStrategy extends PassportStrategy(Strategy) {
+
+    constructor(private authService: AuthService, private userService: UserService) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: process.env.JWT_SECRET
+            secretOrKey: 'A651785272623255A34D1C7B83AE8'
         });
+        console.log(process.env.JWT_SECRET);
     }
 
-    async validate(payload:any){
+    async validate(payload: any) {
         const user = this.userService.findOne(payload.sub);
 
         return user;
