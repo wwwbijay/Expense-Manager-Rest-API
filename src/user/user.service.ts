@@ -21,7 +21,11 @@ export class UserService {
     }
 
     const newUser = this.userRepository.create({ ...userDetails });
-    return this.userRepository.save(newUser);
+    const { password, ...result } = await this.userRepository.save(newUser);
+    return {
+      message: 'User created.',
+      data: result
+    };
   }
 
   findAll() {
