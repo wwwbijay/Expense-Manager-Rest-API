@@ -11,14 +11,13 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: 'A651785272623255A34D1C7B83AE8'
+            secretOrKey: process.env.JWT_ACCESS_SECRET
         });
-        console.log(process.env.JWT_SECRET);
+          
     }
 
     async validate(payload: any) {
         const user = this.userService.findOne(payload.sub);
-
         return user;
     }
 }

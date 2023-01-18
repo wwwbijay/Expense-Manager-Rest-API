@@ -9,20 +9,21 @@ import { User } from 'src/user/entities/User.entity';
 import { UserService } from 'src/user/user.service';
 import { Profile } from 'src/user/entities/profile.entity';
 import { JwtModule } from '@nestjs/jwt/dist';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { JWTStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     UserModule,
     PassportModule,
     TypeOrmModule.forFeature([User, Profile]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_ACCESS_SECRET,
       signOptions: { expiresIn: '60s' },
     })
   ],
-  providers: [AuthService, LocalStrategy, UserService, JWTStrategy, ConfigService],
+  providers: [AuthService, LocalStrategy, UserService, JWTStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })
