@@ -14,15 +14,9 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     login(@Request() req): any {
-        console.log(req);
-
-        return this.authService.login(req);
+        return this.authService.login(req.user);
     }
 
-    @UseGuards(JWTAuthGuard)
-    @Get('protected')
-    getHello(@Request() req) {
-        return req.user;
-    }
+
 
 }
