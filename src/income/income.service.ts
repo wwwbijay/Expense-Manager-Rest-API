@@ -26,9 +26,16 @@ export class IncomeService {
 
     if (!incomeCategory)
       throw new HttpException('Income Category not found. Cannot add income.', HttpStatus.BAD_REQUEST);
-
-    const newIncome = this.incomeRepository.create({ ...incomeDetails, incomeCategory, user });
-    return this.incomeRepository.save(newIncome);
+   
+    try {
+      const newIncome = this.incomeRepository.create({ ...incomeDetails, incomeCategory, user });
+      this.incomeRepository.save(newIncome);
+      return {
+        message: 'Income created successfully',
+      };
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
   findAll() {

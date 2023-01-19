@@ -21,7 +21,7 @@ import { AuthValidationMiddleware } from './middleware/authValidationMiddleware'
     TypeOrmModule.forFeature([User, Profile]),
     JwtModule.register({
       secret: process.env.JWT_ACCESS_SECRET,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     })
   ],
   providers: [AuthService, LocalStrategy, UserService, JWTStrategy, ConfigService],

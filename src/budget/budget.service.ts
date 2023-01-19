@@ -10,26 +10,48 @@ import { Budget } from './entities/budget.entity';
 
 @Injectable()
 export class BudgetService {
-
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Budget) private budgetRepository: Repository<Budget>,
-    @InjectRepository(ExpenseCategory) private exCategoryRepository: Repository<ExpenseCategory>,
-  ) { }
+    @InjectRepository(ExpenseCategory)
+    private exCategoryRepository: Repository<ExpenseCategory>,
+  ) {}
 
-  async create(userId: number, eCatId: number, budgetDetails: CreateBudgetParams) {
+  async create(
+    userId: number,
+    eCatId: number,
+    budgetDetails: CreateBudgetParams,
+  ) {
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (!user)
-      throw new HttpException('User not found. Cannot create budget.', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'User not found. Cannot create budget.',
+        HttpStatus.BAD_REQUEST,
+      );
 
-    const expenseCategory = await this.exCategoryRepository.findOneBy({ id: eCatId });
+    const expenseCategory = await this.exCategoryRepository.findOneBy({
+      id: eCatId,
+    });
 
     if (!expenseCategory)
-      throw new HttpException('Category not found. Cannot create budget.', HttpStatus.BAD_REQUEST);
-
-    const newBudget = this.budgetRepository.create({ ...budgetDetails, expenseCategory, user });
-    return this.budgetRepository.save(newBudget);
+      throw new HttpException(
+        'Category not found. Cannot create budget.',
+        HttpStatus.BAD_REQUEST,
+      );
+    try {
+      const newBudget = this.budgetRepository.create({
+        ...budgetDetails,
+        expenseCategory,
+        user,
+      });
+      this.budgetRepository.save(newBudget);
+      return {
+        message: 'Budget Created Successfully',
+      };
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 
   getAllBudgets() {
@@ -41,13 +63,12 @@ export class BudgetService {
       where: {
         id: id,
       },
-      relations: ['expenseCategory']
+      relations: ['expenseCategory'],
     });
   }
 
   update(id: number, userBudget: UpdateBudgetParams) {
     return this.budgetRepository.update({ id }, { ...userBudget });
-
   }
 
   remove(id: number) {
