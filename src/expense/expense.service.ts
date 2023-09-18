@@ -28,8 +28,16 @@ export class ExpenseService {
     if (!expenseCategory)
       throw new HttpException('Category not found. Cannot add expense.', HttpStatus.BAD_REQUEST);
 
-    const newExpense = this.expenseRepository.create({ ...expenseDetails, expenseCategory, user });
-    return this.expenseRepository.save(newExpense);
+    try {
+      const newExpense = this.expenseRepository.create({ ...expenseDetails, expenseCategory, user });
+      this.expenseRepository.save(newExpense);
+      return {
+        message: 'Expense Created Successfully',
+      };
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+    
   }
 
   findAll() {
