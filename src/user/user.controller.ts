@@ -5,20 +5,19 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Put, Query } from '@nestjs/common/decorators';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
-import * as bcrypt from 'bcrypt';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post('/signup')
-  async create(@Body() createUserDto: CreateUserDto) {
-    const saltOrRounds = 10;
-    const hashedPassword = await bcrypt.hash(createUserDto.password, saltOrRounds);
-    createUserDto.password = hashedPassword;
-    return this.userService.create(createUserDto);
-  }
+  // @Post('/signup')
+  // async create(@Body() createUserDto: CreateUserDto) {
+  //   const saltOrRounds = 10;
+  //   const hashedPassword = await bcrypt.hash(createUserDto.password, saltOrRounds);
+  //   createUserDto.password = hashedPassword;
+  //   return this.userService.create(createUserDto);
+  // }
 
   @Get()
   async findAll() {
